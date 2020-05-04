@@ -30,13 +30,6 @@ module.exports = function() {
         )
     });
  
-    // router.get('/zoomMeet', function(req, res){
-    //     homeController.zoom
-    // });
-    // router.get('/zoomMeet',
-    // authController.usuarioAutenticado,
-    // homeController.zoom);
-
 
     // Muestra un meeti
     router.get('/meeti/:slug', 

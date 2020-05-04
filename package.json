@@ -9,7 +9,7 @@
     "start": "node ./index.js",
     "watch": "webpack --w --mode development"
   },
-  "author": "Juan De la torre",
+  "author": "Ricardo saldarriaga",
   "license": "ISC",
   "devDependencies": {
     "@babel/core": "7.4.0",
