@@ -1,0 +1,139 @@
+<main class="contenedor contenedor-formularios">
+    <h1><%- nombrePagina %></h1>
+    <form class="default-form" method="POST">
+        <legend>Sobre el Meeti</legend>
+        <div class="campo">
+            <label>Grupo</label>
+            <select name="grupoId">
+                <option value="" disabled selected>-- Selecciona Grupo --</option>
+                <% if(grupos.length > 0 ) { %>
+                    <% grupos.forEach(grupo => { %>
+                        <option <%= (meeti.grupoId === grupo.id ) ? 'selected' : '' %> value="<%= grupo.id %>"><%= grupo.nombre%></option>
+                    <% }) %>
+                <% } %>
+            </select>
+        </div>
+        <div class="campo">
+            <label>Titulo</label>
+            <input type="text" name="titulo" value="<%= meeti.titulo %>">
+        </div>
+        <div class="campo">
+            <label>Invitado</label>
+            <input type="text" name="invitado" value="<%= meeti.invitado %>">
+        </div>
+        <div class="columnas-2 grid">
+            <div class="campo">
+                <label>Fecha</label>
+                <input type="date" name="fecha" value="<%= meeti.fecha %>">
+            </div>
+            <div class="campo">
+                <label>Hora</label>
+                <input type="time" name="hora" value="<%= meeti.hora %>">
+            </div>
+        </div>
+        <div class="campo">
+            <label>Cupo</label>
+            <input type="number" min="1" name="cupo" value="<%= meeti.cupo %>">
+        </div>
+        <div class="campo descripcion">
+            <label>Descripción</label>
+            <div class="contenedor-editor">
+                <input type="hidden" id="x" name="descripcion" value="<%= meeti.descripcion %>">
+                <trix-editor input="x"></trix-editor>
+            </div>
+        </div>
+        <legend>reunión personalizada</legend>
+        <div class="campo">
+            <label></label>
+            <div class="contenedor-input">
+                    <div>
+                        <label>
+                            <input type="checkbox" class="checkB-input checkbox" id="checkPago"/>
+                            cobrar reunión?
+                         </label>
+                    </div>
+            </div>
+        </div>
+
+        <div class="pago" id="pagoCheck" style="display:none">
+
+            <div class="campo">
+                <label>Valor reunion</label>
+                <input type="text" id="valorMeeti" name="valorMeeti" placeholder="Valor reunión" value="<%= meeti.valorMeeti %>">
+            </div>
+
+            <br>
+            <p style="
+    font-weight: bold;
+    color: #333;
+    font-size: 1rem;
+    text-align: center;
+">los siguientes valores debe de validarlo en la cuenta de ePayco:</p>
+
+            <div class="campo">
+                <label>P_CUST_ID</label>
+                <input type="text" id="epayco_customerid" name="epayco_customerid" placeholder="ID de cliente que lo identifica en ePayco. Lo puede encontrar en su panel de clientes en la opción configuración" value="<%= meeti.epayco_customerid %>" >
+            </div>
+            <div class="campo">
+                <label>P_KEY</label>
+                <input type="text" id="epayco_secretkey" name="epayco_secretkey" placeholder="LLave para firmar la información enviada y recibida de ePayco." value="<%= meeti.epayco_secretkey %>">
+            </div>
+
+            <div class="campo">
+                <label>PUBLIC_KEY</label>
+                <input type="text" id="epayco_publickey" name="epayco_publickey" placeholder="LLave para autenticar y consumir los servicios de ePayco." value="<%= meeti.epayco_publickey %>" >
+            </div>
+
+            <div class="campo">
+                <label>modo</label>
+                <div>
+                    <label>
+                      <input type="radio" class="checkB-input radio" name="checkoutTest" id="checkoutTest" checked />
+                      Prueba
+                    </label>
+                    <label>
+                      <input type="radio" class="checkB-input radio" name="checkoutTest" id="checkoutTest"  />
+                      Producción
+                    </label>
+                  </div>
+            </div>
+        </div>
+        <br>
+        <p style="
+        font-weight: bold;
+        color: #333;
+        font-size: 1rem;
+        text-align: center;
+    ">los siguientes valores debe de validarlo en la cuenta de zoom:</p>
+      <div class="campo">
+        <label>zoom id reunion</label>
+        <input type="text" id="zoomId" name="zoomId" placeholder="id reunio zoom" required value="<%= meeti.zoomId %>">
+    </div>
+
+    <div class="campo">
+        <label>zoom password reunion</label>
+        <input type="text" id="zoomPassword" name="zoomPassword" placeholder="password reunio zoom" required value="<%= meeti.zoomPassword %>" >
+    </div>
+    <br>
+
+        
+        <p class="informacion">Confirma que los siguientes campos sean correctos:</p>
+
+        <div class="campo">
+            <label>Ciudad</label>
+            <input type="text" id="ciudad" name="ciudad" value="<%= meeti.ciudad %>">
+        </div>
+        <div class="campo">
+            <label>Estado</label>
+            <input type="text" id="estado" name="estado" value="<%= meeti.estado %>">
+        </div>
+        <div class="campo">
+            <label>País</label>
+            <input type="text" id="pais" name="pais" value="<%= meeti.pais %>">
+        </div>
+
+        <div class="campo enviar">
+            <input type="submit" class="btn btn-rosa" value="Guardar Cambios">
+        </div>        
+    </form>
+</main>

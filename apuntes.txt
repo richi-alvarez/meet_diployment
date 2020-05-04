@@ -1,0 +1,15 @@
+1) en la tabla de orden implementar columna con interesado() en caso de que si este interesado y el estado activo este activo mostrar la url de la reunion
+, crear columna con url de confirmacion
+
+2)"9 validar el formulario de pago, si ya esta pago no mostrarlo"
+
+3) en el controlador de pago se debe de implementar el condicional de si es aceptada habilitar la reunion en la tabala de orden y crear una url unica, para esto se debe de crear una columna o crear tabla con este valor
+
+
+4)con la confirmacion se actualiza en la base de datos, en la url de respuesta mostrar el link de la reunion en caso de ser aceptada
+
+5) login con facebook y gmail
+6)validacion de formularios
+7)dimension a todas la imagenes
+
+algunas cosas
