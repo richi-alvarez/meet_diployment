@@ -97,6 +97,7 @@ function pagarWithEpayco (e){
 
 // document.querySelector('#epayco').addEventListener('submit', function(e){
     e.preventDefault();
+  
     let meetiId = document.getElementById('meetId').value;
     let usuarioId = document.getElementById('usuarioId').value;
     let grupoId = document.getElementById('grupoId').value;
@@ -107,7 +108,7 @@ function pagarWithEpayco (e){
     }
 
 // console.log('click..');
-// console.log('llego', this.action)
+ console.log('llego', this.action)
 //axios.post(this.action, datos)
         // .then(respuesta => {
         //})
@@ -119,7 +120,6 @@ function pagarWithEpayco (e){
 
             },
             success: function(datos){  
-          
                var Datavalue = datos.llave;
                 var url= window.location.origin+'/confirmation_payment';
                 //console.log(url)
@@ -155,11 +155,9 @@ function pagarWithEpayco (e){
                 confirmation: url,
                 response: url,
                             };
-                            window.setTimeout(function () {
-                               
-                                handler.open(data);
-                              }, 2000);
-                
+                           
+                              handler.open(data);
+                              console.log(data)
               });
 
               $("#snoA").fadeIn();
@@ -178,7 +176,6 @@ function pagarWithEpayco (e){
 
  function verZoom(e){
     e.preventDefault();
-    debugger
    // console.log('checkSystemRequirements');
   //  console.log(JSON.stringify(ZoomMtg.checkSystemRequirements()));
    ZoomMtg.preLoadWasm();
@@ -251,6 +248,7 @@ function checkPagos(e){
         document.getElementById("pagoCheck").style.display = "none";
        // text.style.display = "none";
        document.getElementById("valorMeeti").required = false;
+       document.getElementById("valorMeeti").value = '';
        document.getElementById("epayco_customerid").required = false;
        document.getElementById("epayco_secretkey").required = false;
        document.getElementById("epayco_publickey").required = false;

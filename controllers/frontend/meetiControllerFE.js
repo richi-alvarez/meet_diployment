@@ -72,23 +72,10 @@ if(ordenes.length===0)
 {
     // console.log('====3333====',ordenes,req.headers.referer)
   var orden_ ={};
-}
+  var url_={};
 
-for (var key in ordenes) {
-     orden_ = ordenes[key];
-}
-var orden={};
-var url_={};
-if(userCount)
-{
      url_= { url: req.headers.referer+'zoom/'+meeti.id};
      orden = Object.assign(orden_, url_);
-}else{
-     url_={ url: req.headers.referer+'zoom/'+orden_.id};
-     orden = Object.assign(orden_, url_);
-}
-
-
 
     // pasar el resultado hacia la vista
     
@@ -100,6 +87,33 @@ if(userCount)
         moment,
         userCount
     })
+}else
+    {
+    for (var key in ordenes) {
+        orden_ = ordenes[key];
+   }
+   var orden={};
+var url_={};
+if(userCount)
+{
+     url_= { url: req.headers.referer+'zoom/'+meeti.id};
+     orden = Object.assign(orden_, url_);
+}else{
+     url_={ url: req.headers.referer+'zoom/'+orden_.id};
+     orden = Object.assign(orden_, url_);
+}
+    // pasar el resultado hacia la vista
+    
+    res.render('mostrar-meeti', {
+        nombrePagina : meeti.titulo,
+        meeti, 
+        comentarios, 
+        orden,
+        moment,
+        userCount
+    })
+ }
+
 }
 
 
@@ -133,16 +147,16 @@ exports.confirmarAsistencia = async (req, res) => {
 
 // Confirma pago si el usuario asistirá al meeti
 exports.confirmarPago = async (req, res) => {
-
     try {
   //validar si existe la orden
         const id_ = req.body.slug+'_'+req.body.usuarioId;
        const ordenExist = await  Ordenes.findByPk(id_);
-
+console.log("____________",id_);
        //si no exixte crear la
        if(!ordenExist) {
         console.log('_____________ no existe la consulta 1________');
         const orden = req.body;
+        console.log('_____________ orden________',orden);
         orden.usuarioId = req.body.usuarioId;
         orden.id = id_;
        // orden.id = uuid();
@@ -152,7 +166,7 @@ exports.confirmarPago = async (req, res) => {
         //si existe la orden trare los datos a mostrar
         const consulta = await Ordenes.findOne({ 
             where : {
-                usuarioId : req.body.usuarioId          
+                id : id_, usuarioId : req.body.usuarioId       
             }, 
             include : [
                 { 
@@ -166,15 +180,16 @@ exports.confirmarPago = async (req, res) => {
 
         // Si no existe
        if(!consulta) {
-        console.log('_____________ no existe la consulta________');
+        console.log('_____________ no existe la consulta2________');
       }
-     
+      console.log('_____________ enviar 1________');
         res.send({data:consulta,llave:epayco_key});
       }else{
         //si existe la orden trare los datos a mostrar
+        console.log('_____________ EXISTE 1________');
             const consulta = await Ordenes.findOne({ 
                 where : {
-                    usuarioId : req.body.usuarioId          
+                    id : id_, usuarioId : req.body.usuarioId        
                 }, 
                 include : [
                     { 
@@ -187,13 +202,13 @@ exports.confirmarPago = async (req, res) => {
                 });
             // Si no existe
            if(!consulta) {
-            console.log('_____________ no existe la consulta________');
+            console.log('_____________ no existe la consulta________3');
           }
           var epaycoKey= {};
           for (var key in epayco_key) {
             epaycoKey = epayco_key[key];
        }
-
+       console.log('_____________ enviar 2________');
           res.send({data:consulta,llave:epayco_key});
         }
            

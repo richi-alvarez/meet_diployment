@@ -33,8 +33,10 @@ exports.crearMeti = async (req, res) => {
     }else{
         meeti.pagada = 1;
     }
-  
-
+    var re = /-/g;
+    var meetZommId = meeti.zoomId.replace(re, '');
+    
+    meeti.zoomId=meetZommId;
     meeti.id = uuid();
 
     // almacenar en la BD
@@ -107,9 +109,12 @@ exports.editarMeeti = async (req, res, next) => {
     // asignar los valores
     const { grupoId, titulo, invitado, fecha, hora, cupo,  ciudad, estado, pais,valorMeeti,epayco_customerid,epayco_secretkey, epayco_publickey,descripcion,zoomId,zoomPassword } = req.body; 
     let pagada_ =0
+    console.log("__________________",valorMeeti);
 if(valorMeeti){
  pagada_ = 1;
 }
+var re = /-/g;
+var meetZommId = zoomId.replace(re, '');
 
     meeti.grupoId = grupoId;
     meeti.titulo = titulo;
@@ -126,10 +131,10 @@ if(valorMeeti){
     meeti.epayco_secretkey= epayco_secretkey;
     meeti.epayco_publickey = epayco_publickey;
     meeti.descripcion = descripcion;
-    meeti.zoomId = zoomId;
+    meeti.zoomId = meetZommId;
     meeti.zoomPassword = zoomPassword;
 
-    console.log("==================",meeti);
+   // console.log("==================",meeti);
   
    // meeti.ubicacion = point;
 

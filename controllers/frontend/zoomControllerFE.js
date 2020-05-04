@@ -17,19 +17,32 @@ exports.mostrarMeeti = async function(req, res, next){
 console.log('----------',ordenes.length)
 if(ordenes.length<=0){
     console.log('----2------',id_,req.user.id)
-    var userCount=true;
-    console.log(userCount)
+ 
     var meeti = await Meeti.findOne({ where : { id: id_, usuarioId : req.user.id }});
+    var userCount=false;
     if(!meeti) {
+        meeti = await Meeti.findOne({ where : { id: id_ }});
+        if(!meeti) {
         req.flash('error', 'No se encontro la reunion');
         res.redirect('/administracion');
-        return next();
-        }
+        return next();}
         res.render('zoom',{
             nombrePagina : 'zoom',
             userCount,
             meeti
         });
+
+        }else{
+            if(meeti.usuarioId===req.user.id){
+                userCount = true;
+                        
+        res.render('zoom',{
+            nombrePagina : 'zoom',
+            userCount,
+            meeti
+        });
+            }
+        }
 
 }else{
     var orden_ = {};
@@ -46,10 +59,8 @@ if(ordenes.length<=0){
         var userCount=false;
         
         try {
-            // if(orden_.usuarioId===req.user.id){
-            //     userCount = true;
-            // }
-            console.log(userCount)
+          
+          
             res.render('zoom',{
                 nombrePagina : 'zoom',
                 userCount,
