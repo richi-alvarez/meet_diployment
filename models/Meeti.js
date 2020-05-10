@@ -54,6 +54,9 @@ const Meeti = db.define(
         epayco_publickey : {
             type : Sequelize.TEXT
         },
+        checkoutTest: {
+            type : Sequelize.TEXT
+        },
         descripcion : {
             type : Sequelize.TEXT, 
             allowNull : false,

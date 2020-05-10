@@ -107,9 +107,9 @@ exports.editarMeeti = async (req, res, next) => {
     }
 
     // asignar los valores
-    const { grupoId, titulo, invitado, fecha, hora, cupo,  ciudad, estado, pais,valorMeeti,epayco_customerid,epayco_secretkey, epayco_publickey,descripcion,zoomId,zoomPassword } = req.body; 
+    const { grupoId, titulo, invitado, fecha, hora, cupo,  ciudad, estado, pais,valorMeeti,epayco_customerid,epayco_secretkey, epayco_publickey,descripcion,zoomId,zoomPassword,checkoutTest } = req.body; 
     let pagada_ =0
-    console.log("__________________",valorMeeti);
+    console.log("__________________",checkoutTest);
 if(valorMeeti){
  pagada_ = 1;
 }
@@ -133,13 +133,14 @@ var meetZommId = zoomId.replace(re, '');
     meeti.descripcion = descripcion;
     meeti.zoomId = meetZommId;
     meeti.zoomPassword = zoomPassword;
+    meeti.checkoutTest= checkoutTest;
 
    // console.log("==================",meeti);
   
    // meeti.ubicacion = point;
 
     // almacenar en la BD
-    await meeti.save();
+   // await meeti.save();
     req.flash('exito', 'Cambios Guardados Correctamente');
     res.redirect('/administracion');
 
